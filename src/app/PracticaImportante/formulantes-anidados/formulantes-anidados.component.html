@@ -1,0 +1,44 @@
+<h2>Formulario de Estudiante</h2>
+
+<!-- Conectamos el formulario con el FormGroup -->
+<form [formGroup]="formularioEstudiante" (ngSubmit)="guardarEstudiante()">
+
+    <!-- Input de Nombre -->
+    <label for="nombre">Nombre:</label>
+    <input id="nombre" type="text" formControlName="nombre" required />
+
+    <!-- Input de Edad -->
+    <label for="edad">Edad:</label>
+    <input id="edad" type="number" formControlName="edad" required />
+
+    <!-- Subgrupo de Dirección -->
+    <fieldset formGroupName="direccion">
+    <legend>Dirección</legend>
+
+    <label for="calle">Calle:</label>
+    <input id="calle" type="text" formControlName="calle" required />
+
+    <label for="ciudad">Ciudad:</label>
+    <input id="ciudad" type="text" formControlName="ciudad" required />
+    </fieldset>
+
+    <!-- FormArray de Materias -->
+    <fieldset>
+    <legend>Materias</legend>
+    <button type="button" (click)="agregarMateria()">Agregar Materia</button>
+
+    <div formArrayName="materias">
+        <div *ngFor="let materiaControl of materiasArray.controls; let i = index">
+            <label for="materia{{i}}">Materia {{i + 1}}:</label>
+            <input id="materia{{i}}" type="text" [formControlName]="i" />
+        </div>
+    </div>
+    </fieldset>
+    <button type="submit" [disabled]="formularioEstudiante.invalid">Guardar</button>
+</form>
+
+<!-- Mostrar los valores en tiempo real -->
+<h3>Datos del Formulario:</h3>
+<pre>{{ formularioEstudiante.value | json }}</pre>
+<br>
+<p>El formulario es valido? {{formularioEstudiante.valid}}</p>

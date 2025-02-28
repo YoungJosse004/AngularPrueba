@@ -1,0 +1,16 @@
+<div>
+@if (cart.length>0) {
+    <div>
+        @for (item of cart; track $index) {
+            <h3>{{item.producto.name}}</h3>
+            <p>Precio: {{ item.producto.price | currency }}</p>
+            <img [src]="'data:image/jpeg;base64,' + item.producto.image" alt="Imagen del producto" class="product-img"/>
+            <button (click)="incrementar(item.producto.id)">Incrementar</button>
+            <button (click)="decrementar(item.producto.id)">Decrementar</button>
+            <button (click)="eliminarDelCarrito(item.producto.id)">Eliminar</button>
+        }
+    </div>
+}   @else {
+        <p>El carrito esta vacio</p>
+}
+</div>

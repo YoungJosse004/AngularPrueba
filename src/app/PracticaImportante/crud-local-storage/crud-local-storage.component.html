@@ -1,0 +1,23 @@
+<h2>CRUD de Estudiantes con localStorage</h2>
+<!-- Formulario -->
+<form [formGroup]="formularioEstudiante" (ngSubmit)="guardarEstudiante()">
+    <label for="nombre">Nombre:</label>
+    <input id="nombre" type="text" formControlName="nombre" required />
+    <label for="edad">Edad:</label>
+    <input id="edad" type="number" formControlName="edad" required />
+
+    <!-- Cambia el texto del botón si estamos editando -->
+    <button type="submit">{{ indexEdicion !== null ? 'Actualizar Estudiante' : 'Agregar Estudiante' }}</button>
+</form>
+
+<!-- Lista de estudiantes -->
+<h3>Lista de Estudiantes</h3>
+<ul>
+    @for (estudiante of estudiantes; track $index) {
+    <li>
+        {{ estudiante.nombre }} - {{ estudiante.edad }} años
+        <button (click)="editarEstudiante($index)">Editar</button>
+        <button (click)="eliminarEstudiante($index)">Eliminar</button>
+    </li>   
+    }
+</ul>

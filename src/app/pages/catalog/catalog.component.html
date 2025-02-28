@@ -1,0 +1,7 @@
+<div>
+@for (producto of productos; track $index) {
+    <h3>{{producto.producto}}</h3>
+    <p>Precio: ${{producto.precio}}</p>
+    <!---<button (click)="agregarAlcarrito(producto)">Agregar al carrito</button>--->
+}
+</div>

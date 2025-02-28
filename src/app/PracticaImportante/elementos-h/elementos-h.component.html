@@ -1,0 +1,30 @@
+<h2>Formulario de Prueba</h2>
+<form>
+<!-- Campo de texto -->
+    <label for="nombre">Nombre:</label>
+    <input type="text" id="nombre" [(ngModel)]="nombre" name="nombre" placeholder="Escribe tu nombre" />
+    <p>Valor ingresado: {{ nombre }}</p>
+
+    <!-- Checkbox -->
+    <label>
+    <input type="checkbox" [(ngModel)]="aceptaTerminos" name="terminos" />
+    Acepto los términos y condiciones
+    </label>
+    <p>¿Aceptó? {{ aceptaTerminos ? 'Sí' : 'No' }}</p>
+
+    <!-- Radio buttons -->
+    <p>Selecciona tu género:</p>
+    <label>
+    <input type="radio" [(ngModel)]="genero" name="genero" value="Masculino" />
+    Masculino
+    </label>
+    <label>
+    <input type="radio" [(ngModel)]="genero" name="genero" value="Femenino" />
+    Femenino
+    </label>
+    <p>Género seleccionado: {{ genero }}</p>
+
+    <!-- Botón con evento -->
+    <button (click)="enviarFormulario($event)">Enviar</button>
+</form>
+

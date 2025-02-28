@@ -1,0 +1,15 @@
+<h2>Lista de productos</h2>
+@if (productos.length===0) {
+<div>
+    <p>No hay productos disponibles</p>
+</div>
+}
+<div class="card">
+@for (producto of productos; track $index) {
+    <h3>{{producto.name}}</h3>
+    <p>Precio: {{ producto.price | currency }}</p>
+    <img [src]="'data:image/jpeg;base64,' + producto.image" alt="Imagen del producto" class="product-img"/>
+    <p>{{producto | json}}</p>
+    <button (click)="agregarAlCarrito(producto)">Añadir al carrito</button>
+}
+</div>

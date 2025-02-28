@@ -1,0 +1,50 @@
+<!---[PropertyBidding] se usa para pasar datos desde el componente a la vista--->
+<input type="text" [disabled]="isDisabled" placeholder="No puedes escribir aqui">
+<!--Como [Disabled] esta ligado a la variable, cada vesz que cambia, el input se bloquea o habilita--->
+<button (click)="toggleInput()">Habilitar/Dehabilitar</button>
+
+
+<!---Event Bidiing ()--->
+<input type="text" (input)="mostrarTexto($event)" placeholder="Escribe algo....">
+<p>Texto ingresado: {{texto}}</p>
+
+<!---Bidireccional-->
+<input type="text" [(ngModel)]="nombre">
+<p>Nombre ingresado: {{nombre}}</p>
+
+<!---Aqui usa internamente la propiedad [cheked] del elemento html pues este solamente
+tiene 2 estados que se le puede Inicializar y luego con el click se le cambia el estado ya que
+capturar el event.target.value y se le asigna a la variable booleana.
+Por lo tanto tambien se puede usar el [checked] y el (change) para ejecutar un metodo que capture el event--->
+<input type="checkbox" [(ngModel)]="acepto">
+<p>{{acepto ? 'Acepto los terminos' : 'No aceptaste los terminos'}}</p>
+<br>
+<!--Se inicializa el select con un valor predeterminado por una variable y change detecta el cambio y
+Guarda el nuevo valor de este elemento HTML-->
+<label>Escoge el valor</label><br>
+<select [value]="pais" (change)="cambiarColor($event)">
+    <option value="America">America</option>
+    <option value="Sudafrica">Sudafrica</option>
+</select>
+<br>
+<p>{{pais}}</p> <br>
+
+<!--Ahora con array--->
+<label>Escoge el valor</label><br>
+<select [value]="paisSeleccionado" (change)="cambiarPais($event)">
+    @for (item of paises; track $index) {
+    <option [value]="item">{{item}}</option>
+    }
+</select>
+<br>
+<p>Ahora el valor del select es: {{paisSeleccionado}}</p>
+<!---Con el ngModel--->
+<br>
+<label for="pais">Selecciona un país:</label>
+<select id="pais" [(ngModel)]="estado">
+    <option value="mexico">México</option>
+    <option value="colombia">Colombia</option>
+    <option value="españa">España</option>
+</select>
+
+<p>País seleccionado: {{ estado }}</p>

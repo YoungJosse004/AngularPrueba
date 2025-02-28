@@ -1,0 +1,83 @@
+<h2>Formulario sin FormsModule</h2>
+
+<form (submit)="enviarFormulario($event)">
+  <!-- Select para elegir país -->
+  <label for="pais">Selecciona un país:</label>
+  <select id="pais" [value]="paisSeleccionado" (change)="actualizarPais($event)">
+    <option value="mexico">México</option>
+    <option value="colombia">Colombia</option>
+    <option value="españa">España</option>
+  </select>
+  <p>País seleccionado: {{ paisSeleccionado }}</p>
+
+  <!-- Radio Buttons para elegir género -->
+  <p>Selecciona tu género:</p>
+  <label>
+    <input type="radio" name="genero" value="masculino" [checked]="generoSeleccionado === 'masculino'"
+      (change)="actualizarGenero($event)">
+    Masculino
+  </label>
+  <label>
+    <input type="radio" name="genero" value="femenino" [checked]="generoSeleccionado === 'femenino'"
+      (change)="actualizarGenero($event)">
+    Femenino
+  </label>
+  <p>Género seleccionado: {{ generoSeleccionado }}</p>
+
+  <!-- Checkbox para aceptar términos -->
+  <label>
+    <input type="checkbox" [checked]="aceptaTerminos" (change)="actualizarAceptaTerminos($event)">
+    Acepto los términos y condiciones
+  </label>
+  <p>{{ aceptaTerminos ? '✅ Has aceptado los términos' : '❌ No has aceptado los términos' }}</p>
+
+  <!-- Botón para enviar -->
+  <button type="submit">Enviar</button>
+</form>
+
+<br>
+<h1>Otro formulario Reactivo</h1>
+
+<!-- Formulario con [formGroup] para enlazarlo -->
+<form [formGroup]="formularioEmpleado" (ngSubmit)="guardarEmpleado()">
+  
+    <!-- Input de Nombre -->
+    <label for="nombre">Nombre:</label>
+    <input id="nombre" type="text" formControlName="nombre" required />
+    @if (formularioEmpleado.get('nombre')?.invalid && formularioEmpleado.get('nombre')?.touched) {
+      ❌ El nombre es obligatorio y debe tener mínimo 3 caracteres.
+    }
+    <br>
+    <!-- Select de Cargo -->
+    <label for="cargo">Cargo:</label>
+    <select id="cargo" formControlName="cargo">
+        @for (item of cargos; track $index) {
+        <option [value]="item">{{ item }}</option>
+        }
+    </select>
+
+    <!-- Radio Buttons para Género -->
+    <p>Género:</p>
+    <label>
+      <input type="radio" formControlName="genero" value="masculino" />
+      Masculino
+    </label>
+    <label>
+      <input type="radio" formControlName="genero" value="femenino" />
+      Femenino
+    </label>
+  
+    <!-- Checkbox para Estado Activo -->
+    <label>
+      <input type="checkbox" formControlName="activo" />
+      ¿Está activo?
+    </label>
+  
+    <!-- Botón para enviar depende del estado del .invalid-->
+    <button type="submit" [disabled]="formularioEmpleado.invalid">Guardar</button>
+  </form>
+  
+  <!-- Mostrar los valores del formulario en tiempo real -->
+  <h3>Datos del Formulario:</h3>
+  <pre>{{ formularioEmpleado.value | json }}</pre>
+  <p>¿Es Invalido? {{formularioEmpleado.invalid}}</p>
